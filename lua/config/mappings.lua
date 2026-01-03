@@ -24,3 +24,32 @@ end, { noremap = true, silent = true, desc = "Show diagnostics info" }
 vim.keymap.set("n", "<leader>lr", "<cmd>LspRestart ts_ls<CR>", {
   desc = "Restart ts_ls LSP server"
 })
+
+-- Diagnostic virtual text toggle functions
+local diagnostic_virtual_text_enabled = false
+
+local function show_diagnostics()
+  vim.diagnostic.config({
+    virtual_text = true,
+  })
+  diagnostic_virtual_text_enabled = true
+  print("Diagnostics virtual_text enabled")
+end
+
+local function hide_diagnostics()
+  vim.diagnostic.config({
+    virtual_text = false,
+  })
+  diagnostic_virtual_text_enabled = false
+  print("Diagnostics virtual_text disabled")
+end
+
+vim.api.nvim_create_user_command("ShowInfo", show_diagnostics, {})
+vim.api.nvim_create_user_command("HideInfo", hide_diagnostics, {})
+
+vim.keymap.set("n", "<leader>da", show_diagnostics, { desc = "Show diagnostic virtual text" })
+vim.keymap.set("n", "<leader>dh", hide_diagnostics, { desc = "Hide diagnostic virtual text" })
+
+vim.diagnostic.config({
+  virtual_text = false,
+})
