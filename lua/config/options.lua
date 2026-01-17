@@ -73,5 +73,9 @@ vim.api.nvim_create_autocmd("BufWritePre", {
   end
 })
 
+-- disable swap files
+vim.opt.swapfile =  false
+
+
 -- block_style_cursor
 --vim.o.guicursor = "n-v-c:block,i-ci-ve:block,r-cr-o:hor20"

@@ -14,7 +14,7 @@ return {
 
     {
         "VonHeikemen/lsp-zero.nvim",
-        branch = "v2.x",
+        branch = "v4.x",
         event = "VeryLazy",
         dependencies = {
             -- LSP Support
@@ -23,92 +23,40 @@ return {
             { "williamboman/mason-lspconfig.nvim" },
         },
         config = function()
-            local lsp = require("lsp-zero")
+            local lsp_zero = require("lsp-zero")
 
-            lsp.on_attach(function(client, bufnr)
-                local opts = { buffer = bufnr, remap = false }
+            local lsp_attach = function(client, bufnr)
+                local opts = { buffer = bufnr }
                 vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
                 vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
                 vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
                 vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
                 vim.keymap.set("n", "<F2>", vim.lsp.buf.rename, opts)
-            end)
+            end
 
-            -- Setup Mason
+            lsp_zero.extend_lspconfig({
+                capabilities = require("cmp_nvim_lsp").default_capabilities(),
+                lsp_attach = lsp_attach,
+            })
+
             require("mason").setup({})
             require("mason-lspconfig").setup({
-                ensure_installed = {
-                    "pylsp",
-                    "prismals",
-                    "gopls",
-                    "rust_analyzer",
-                    "ts_ls",
-                },
-                automatic_installation = true,
+                ensure_installed = { "pylsp", "ts_ls", "gopls", "rust_analyzer", "clangd", "hls", "lua_ls" },
                 handlers = {
-                    -- Default handler for all servers
                     function(server_name)
-                        require('lspconfig')[server_name].setup({
-                            on_attach = lsp.on_attach,
-                            capabilities = lsp.get_capabilities(),
-                        })
+                        require("lspconfig")[server_name].setup({})
                     end,
-                    -- Custom handler for rust_analyzer
-                    rust_analyzer = function()
-                        require('lspconfig').rust_analyzer.setup({
-                            on_attach = lsp.on_attach,
-                            capabilities = lsp.get_capabilities(),
-                            root_dir = require("lspconfig.util").root_pattern("Cargo.toml", "rust-project.json"),
-                            settings = {
-                                ["rust-analyzer"] = {
-                                    cargo = {
-                                        allFeatures = true,
-                                    },
-                                    check = {
-                                        command = "clippy",
-                                    },
-                                    procMacro = {
-                                        enable = true,
-                                    },
-                                },
-                            },
-                        })
-                    end,
-                    -- Custom handler for ts_ls
-                    ts_ls = function()
-                        require('lspconfig').ts_ls.setup({
-                            on_attach = lsp.on_attach,
-                            capabilities = lsp.get_capabilities(),
-                            root_dir = function(fname)
-                                local util = require("lspconfig.util")
-                                return util.root_pattern('tsconfig.json', 'package.json')(fname) or
-                                    util.root_pattern('.git')(fname) or
-                                    util.path.dirname(fname)
-                            end,
-                            single_file_support = false,
-                        })
-                    end,
-                    -- Custom handler for gopls
-                    gopls = function()
-                        require('lspconfig').gopls.setup({
-                            on_attach = lsp.on_attach,
-                            capabilities = lsp.get_capabilities(),
-                            root_dir = require("lspconfig.util").root_pattern("go.mod", ".git"),
-                        })
-                    end,
-                }
-            })
 
-            -- Setup servers not managed by mason
-            require('lspconfig').hls.setup({
-                cmd = { "haskell-language-server-wrapper", "--lsp" },
-                on_attach = lsp.on_attach,
-                capabilities = lsp.get_capabilities(),
-            })
-
-            require('lspconfig').clangd.setup({
-                on_attach = lsp.on_attach,
-                capabilities = lsp.get_capabilities(),
+                    vim.lsp.config("lua_ls", {
+                        settings = {
+                            Lua = {
+                                diagnostics = {
+                                    globals = { "vim" },
+                                }
+                            }
+                        }
+                    })
+                },
             })
 
             -- Setup nvim-cmp

@@ -50,6 +50,9 @@ vim.api.nvim_create_user_command("HideInfo", hide_diagnostics, {})
 vim.keymap.set("n", "<leader>da", show_diagnostics, { desc = "Show diagnostic virtual text" })
 vim.keymap.set("n", "<leader>dh", hide_diagnostics, { desc = "Hide diagnostic virtual text" })
 
-vim.diagnostic.config({
-  virtual_text = false,
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = "python",
+    callback = function()
+        vim.diagnostic.config({ virtual_text = false })
+    end
 })
