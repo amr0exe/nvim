@@ -41,7 +41,7 @@ return {
 
             require("mason").setup({})
             require("mason-lspconfig").setup({
-                ensure_installed = { "pylsp", "ts_ls", "gopls", "rust_analyzer", "clangd", "hls", "lua_ls" },
+                ensure_installed = { "pylsp", "ts_ls", "gopls", "rust_analyzer", "clangd", "hls", "lua_ls", "omnisharp" },
                 handlers = {
                     function(server_name)
                         require("lspconfig")[server_name].setup({})
@@ -63,7 +63,7 @@ return {
             local cmp = require("cmp")
             cmp.setup({
                 mapping = cmp.mapping.preset.insert({
-                    ["<CR>"] = cmp.mapping.confirm({ select = true }),
+                    ["<C-L>"] = cmp.mapping.confirm({ select = true }),
                     ["<Tab>"] = cmp.mapping(function(fallback)
                         if cmp.visible() then
                             cmp.select_next_item()
