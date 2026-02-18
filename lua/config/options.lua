@@ -81,3 +81,12 @@ vim.opt.winborder = "rounded"
 
 -- block_style_cursor
 --vim.o.guicursor = "n-v-c:block,i-ci-ve:block,r-cr-o:hor20"
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "html", "css", "scss", "javascript", "typescript" },
+  callback = function()
+    vim.opt_local.tabstop = 2
+    vim.opt_local.shiftwidth = 2
+    vim.opt_local.expandtab = true
+  end,
+})
