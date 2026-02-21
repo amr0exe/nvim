@@ -41,7 +41,7 @@ return {
 
             require("mason").setup({})
             require("mason-lspconfig").setup({
-                ensure_installed = { "pylsp", "ts_ls", "gopls", "rust_analyzer", "clangd", "hls", "lua_ls", "omnisharp" },
+                ensure_installed = { "pylsp", "ts_ls", "gopls", "rust_analyzer", "clangd", "lua_ls", "omnisharp" },
                 handlers = {
                     function(server_name)
                         require("lspconfig")[server_name].setup({})
