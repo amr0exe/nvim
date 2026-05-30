@@ -2,24 +2,25 @@ return {
     {
         "folke/tokyonight.nvim",
         lazy = false,
-        priority = 1000, 
+        priority = 1000,
         config = function()
             --vim.cmd([[colorscheme tokyonight-night]])
 
-            vim.cmd([[
-                highlight Normal guibg=#121010
-                highlight LineNr guibg=#0f0e0e
-                highlight CursorLine guibg=#262626
-                highlight String guifg=#808a9c
-            ]])
+            --vim.cmd([[
+                --highlight Normal guibg=#121010
+                --highlight LineNr guibg=#0f0e0e
+                --highlight CursorLine guibg=#262626
+                --highlight String guifg=#808a9c
+            --]])
         end,
     },
     {
         "rose-pine/neovim",
         name = "rose-pine",
-        config = function () 
+        config = function ()
 
             require("rose-pine").setup({
+                --variant = "moon",
                 styles = { italic = false },
                 highlight_groups = {
                     Comment = { italic = false },
@@ -27,7 +28,7 @@ return {
                     Keyword = { italic = false }
                 }
             })
-            
+
             --vim.cmd([[colorscheme rose-pine]])
             --vim.cmd([[colorscheme retrobox]])
             --vim.cmd([[colorscheme habamax]])
@@ -53,7 +54,36 @@ return {
             require("vague").setup({
                 -- optional configuration here
             })
-            vim.cmd("colorscheme vague")
+            --vim.cmd("colorscheme vague")
         end
     },
+
+    {
+        "catppuccin/nvim",
+        name = "catppuccin",
+        priority = 1000,
+        config = function ()
+            require("catppuccin").setup()
+            --vim.cmd("colorscheme catppuccin")
+        end
+    },
+
+    {
+        "rebelot/kanagawa.nvim",
+        name = "kanagawa",
+        config = function ()
+            require("kanagawa").setup()
+            --vim.cmd("colorscheme kanagawa-dragon")
+        end
+    },
+
+    {
+        "dgox16/oldworld.nvim",
+        lazy = false,
+        priority = 1000,
+        config = function ()
+            require("oldworld").setup()
+            vim.cmd("colorscheme oldworld")
+        end
+    }
 }

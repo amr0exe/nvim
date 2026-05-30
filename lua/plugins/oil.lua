@@ -15,7 +15,7 @@ return {
                 -- floating window-config
                 float = {
                     max_width = 0.6,
-                    max_height = 0.6, 
+                    max_height = 0.6,
                     override = function(conf)
                         return conf
                     end,
