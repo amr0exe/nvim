@@ -91,4 +91,12 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
+-- format go
+vim.api.nvim_create_autocmd("BufWritePre", {
+    pattern = "*.go",
+    callback = function ()
+        vim.lsp.buf.format()
+    end
+})
+
 vim.cmd("runtime macros/matchit.vim")
