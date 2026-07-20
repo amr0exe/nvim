@@ -21,11 +21,11 @@ return {
 
             require("rose-pine").setup({
                 --variant = "moon",
-                styles = { italic = false },
+                styles = { italic = true },
                 highlight_groups = {
-                    Comment = { italic = false },
-                    Function = { italic = false },
-                    Keyword = { italic = false }
+                    Comment = { italic = true },
+                    Function = { italic = true },
+                    Keyword = { italic = true }
                 }
             })
 
@@ -42,7 +42,7 @@ return {
 
             --vim.api.nvim_set_hl(0, "Directory", { fg = "#0077b6"})
             --vim.api.nvim_set_hl(0, "Normal", { fg = "#808a9c"})
-            vim.api.nvim_set_hl(0, "String", { fg = "#808a9c"})
+            --vim.api.nvim_set_hl(0, "String", { fg = "#808a9c"})
         end,
     },
     {
@@ -51,9 +51,7 @@ return {
         priority = 1000, -- make sure to load this before all the other plugins
         config = function()
             -- NOTE: you do not need to call setup if you don't want to.
-            require("vague").setup({
-                -- optional configuration here
-            })
+            require("vague").setup()
             --vim.cmd("colorscheme vague")
         end
     },
@@ -84,6 +82,16 @@ return {
         config = function ()
             require("oldworld").setup()
             vim.cmd("colorscheme oldworld")
+        end
+    },
+
+    {
+        'everviolet/nvim', name = 'evergarden',
+        priority = 1000, -- Colorscheme plugin is loaded first before any other plugins
+        opts = {
+        },
+        config = function ()
+            --vim.cmd("colorscheme evergarden")
         end
     }
 }

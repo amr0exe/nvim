@@ -3,6 +3,8 @@
 --vim.opt.relativenumber = true
 --vim.opt.fillchars = { eob = " " }
 
+--vim.opt.signcolumn = "yes:1"
+
 -- for tab-based indent
 vim.opt.tabstop = 4
 vim.opt.expandtab = true
@@ -16,13 +18,18 @@ vim.opt.smartindent = true
 vim.opt.clipboard = 'unnamedplus'
 
 -- Enable cursor-line 
-vim.opt.cursorline = true
+--vim.opt.cursorline = true
 
 -- prevent line-break
 vim.o.wrap = false
 
 -- for smoothscroll
 vim.o.smoothscroll = true
+
+-- NewLine At End
+vim.opt.fixendofline = true
+vim.opt.endofline = true
+vim.opt.binary = false
 
 -- remove auto-identing comment
 vim.api.nvim_create_autocmd("BufEnter", {
@@ -37,7 +44,7 @@ vim.diagnostic.config({
         prefix = "E",
         spacing = 2,
     },
-    signs = false, 
+    signs = false,
     underline = false,
     update_in_insert = false,
     severity_sort = true,
@@ -47,7 +54,7 @@ vim.diagnostic.config({
 vim.api.nvim_create_autocmd('TextYankPost', {
     desc = 'Highlight when yanking (copying) text',
     group = vim.api.nvim_create_augroup('highlight-yank', { clear = true }),
-    callback = function() 
+    callback = function()
         vim.highlight.on_yank()
     end,
 })

@@ -41,7 +41,7 @@ return {
 
             require("mason").setup({})
             require("mason-lspconfig").setup({
-                ensure_installed = { "ts_ls", "gopls", "rust_analyzer", "clangd", "lua_ls" },
+                ensure_installed = { "ts_ls", "gopls", "rust_analyzer", "clangd", "lua_ls", "pylsp" },
                 handlers = {
                     function(server_name)
                         require("lspconfig")[server_name].setup({})
@@ -64,20 +64,20 @@ return {
             cmp.setup({
                 mapping = cmp.mapping.preset.insert({
                     ["<C-L>"] = cmp.mapping.confirm({ select = true }),
-                    ["<S-N>"] = cmp.mapping(function(fallback)
+                    ["<TAB>"] = cmp.mapping(function(fallback)
                         if cmp.visible() then
                             cmp.select_next_item()
                         else
                             fallback()
                         end
-                    end, { "i", "s" }),
-                    ["<S-P>"] = cmp.mapping(function(fallback)
+                    end),
+                    ["<S-TAB>"] = cmp.mapping(function(fallback)
                         if cmp.visible() then
                             cmp.select_prev_item()
                         else
                             fallback()
                         end
-                    end, { "i", "s" }),
+                    end)
                 }),
                 sources = {
                     { name = "nvim_lsp" },

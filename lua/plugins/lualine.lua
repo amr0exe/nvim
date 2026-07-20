@@ -1,7 +1,8 @@
 return {
     {
         "nvim-lualine/lualine.nvim",
-        config = function() 
+        enabled = false,
+        config = function()
             require("lualine").setup({
                 options = {
                     theme = "iceberg_dark",
@@ -14,19 +15,20 @@ return {
                     lualine_c = {
                         { 'filename', path = 1},
                     },
-                    lualine_x = { 
+                    lualine_x = {
                         'searchcount',
                         {
                             "diagnostics",
-                            sources = {  'nvim_lsp', },
-                            sections = { 'error','warn', 'info'},
+                            sources = { "nvim_diagnostic" },
+                            sections = { "error", "warn", "info", "hint" },
                             diagnostics_color = {
-                                error = 'diagnosticerror',
-                                warn = 'diagnosticwarn',
-                                info = 'diagnosticinfo',
+                                error = "DiagnosticError",
+                                warn  = "DiagnosticWarn",
+                                info  = "DiagnosticInfo",
+                                hint  = "DiagnosticHint",
                             },
-                            update_in_insert = true,
-                            colored = false,
+                            update_in_insert = false,
+                            colored = true,
                         }
                     },
                     lualine_y = { 'filetype', 'location'},
