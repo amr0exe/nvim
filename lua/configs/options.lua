@@ -1,4 +1,3 @@
-
 -- gutter space
 vim.opt.signcolumn = "yes"
 
@@ -22,6 +21,9 @@ vim.opt.fixendofline = true
 vim.opt.endofline = true
 vim.opt.binary = false
 vim.opt.fillchars = ({ eob = "." })
+
+-- fix for one yank == one paste
+--vim.keymap.set('x', 'p', '"_dP"')
 
 -- misc
 vim.opt.smoothscroll = true

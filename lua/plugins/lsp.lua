@@ -78,6 +78,18 @@ return {
             })
 
             vim.lsp.enable({ "lua_ls", "gopls" })
+
+            -- .tf detection is content-based (terraform vs TinyFugue), and oil opens new
+            -- files empty, so the buffer gets "tf". Re-detect once there's content to write.
+            vim.api.nvim_create_autocmd("BufWritePost", {
+                pattern = "*.tf",
+                callback = function(args)
+                    local ft = vim.filetype.match({ buf = args.buf, filename = vim.api.nvim_buf_get_name(args.buf) })
+                    if ft and ft ~= vim.bo[args.buf].filetype then
+                        vim.bo[args.buf].filetype = ft
+                    end
+                end,
+            })
         end,
     },
 }
