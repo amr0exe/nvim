@@ -11,7 +11,8 @@ return {
                     booleans = { italic = true, bold = true },
                 },
             })
-            vim.cmd.colorscheme("oldworld")
+            --vim.cmd.colorscheme("oldworld")
+            vim.cmd.colorscheme("lunaperche")
         end
     }
 }
