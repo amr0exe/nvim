@@ -48,7 +48,7 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 -- split separator
 vim.api.nvim_create_autocmd("ColorScheme", {
     callback = function()
-        vim.api.nvim_set_hl(0, "WinSeparator", { fg = "#ff6600", bg = "NONE" })
+        vim.api.nvim_set_hl(0, "WinSeparator", { fg = "#CCFF00", bg = "NONE" })
     end,
 })
-vim.opt.fillchars = { vert = "#" }
+vim.opt.fillchars = { vert = "-" }
